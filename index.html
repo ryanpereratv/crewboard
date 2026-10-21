@@ -44,6 +44,21 @@ h1,h2,h3{margin:0;text-wrap:balance}
 .pl .row b{color:var(--fg);font-weight:600}
 .pl.lead{border-color:var(--dmd)}
 .cov{margin-top:16px;display:grid;gap:6px}
+/* shoutouts */
+.shout{margin-top:18px;border:1px solid var(--dmd);border-radius:8px;background:rgba(20,17,16,.9);padding:12px 14px}
+.shout-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 12px}
+.shout-h h2{font-family:var(--f-dot);font-weight:900;color:var(--dmd);font-size:22px;letter-spacing:.04em;text-shadow:0 0 10px rgba(255,138,31,.4)}
+.shout-h .lbl{font-size:12px}
+.shouts{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;margin-top:10px}
+.sc-card{border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 12px;align-items:center;background:var(--panel)}
+.sc-card .rk{grid-row:span 3;font-family:var(--f-dot);font-weight:900;color:var(--dmd);font-size:38px;line-height:1}
+.sc-card.gold{border-color:var(--dmd);background:linear-gradient(135deg,rgba(255,138,31,.16),var(--panel) 60%)}
+.sc-card .who{font-family:var(--f-label);font-weight:700;font-size:17px;letter-spacing:.04em;overflow-wrap:anywhere}
+.sc-card .what{font-size:14px;overflow-wrap:anywhere}
+.sc-card .meta{font-size:12px;color:var(--muted)}
+.shout .none{color:var(--muted);font-size:14px;margin-top:8px}
+@media (prefers-reduced-motion:no-preference){.sc-card.gold .rk{animation:blink 1.2s steps(2,end) 3}}
+@keyframes blink{50%{opacity:.25}}
 .covbar{display:flex;gap:3px;flex-wrap:wrap}
 .covbar i{width:14px;height:14px;border-radius:2px;background:var(--far);display:block}
 .covbar i.own{background:var(--own)} .covbar i.close{background:var(--close)}
@@ -113,6 +128,10 @@ h1,h2,h3{margin:0;text-wrap:balance}
         <button id="tab-Q4" data-p="Q4">Q4 live</button>
         <button id="tab-Y" data-p="Y">2026 year</button>
       </div>
+    </div>
+    <div class="shout" id="shout" hidden>
+      <div class="shout-h"><h2>NEW THIS WEEK</h2><span class="lbl" id="shout-sub"></span></div>
+      <div class="shouts" id="shouts"></div>
     </div>
     <div class="standings" id="standings"></div>
     <div class="cov">
@@ -252,6 +271,22 @@ function render(){
 }
 
 document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{period=b.dataset.p;try{localStorage.setItem('crew-period',period)}catch(e){}render()}));
+function renderShouts(h){
+  const box=document.getElementById('shout'); if(!h) return;
+  const week=Date.now()-7*864e5;
+  const ev=(h.events||[]).filter(e=>Date.parse(e.at)>=week)
+    .sort((a,b)=>a.rank-b.rank||Date.parse(b.at)-Date.parse(a.at));
+  const day=iso=>{const d=new Date(Date.parse(iso)-6*36e5);return d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})};
+  document.getElementById('shout-sub').textContent=ev.length?`${ev.length} new crew top-5 ${ev.length===1?'spot':'moves'} in the last 7 days`:'';
+  document.getElementById('shouts').innerHTML=ev.length?ev.map(e=>{
+    const line=e.kind==='new'?(e.rank===1?'Took #1 on':'Cracked the top 5 on'):(e.rank===1?`Climbed from #${e.prev} to #1 on`:`Climbed from #${e.prev} to #${e.rank} on`);
+    return `<div class="sc-card ${e.rank===1?'gold':''}"><span class="rk">#${e.rank}</span>
+      <span class="who">${DISP[e.u]||esc(e.u)}</span><span class="what">${line} <b>${esc(e.t)}</b></span>
+      <span class="meta num">${short(e.score)} · ${day(e.at)}</span></div>`;}).join('')
+    :`<div class="none">No new crew top-5 spots in the last 7 days. ${Date.parse(h.since)>week?'Tracking started '+new Date(h.since).toLocaleDateString('en-US',{month:'short',day:'numeric'})+', so shoutouts show up after the nightly update.':'Go get one.'}</div>`;
+  box.hidden=false;
+}
+fetch('history.json').then(r=>r.ok?r.json():null).then(renderShouts).catch(()=>{});
 fetch('data.json').then(r=>r.json()).then(d=>{D=d;render()}).catch(()=>{document.getElementById('covtxt').textContent='Could not load the score data.'});
 </script>
 
