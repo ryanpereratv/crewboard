@@ -2,8 +2,11 @@ name: Refresh scores
 
 on:
   schedule:
-    - cron: "17 10 * * 1"   # Mondays 10:17 UTC (6:17 a.m. Eastern in summer, 5:17 a.m. in winter)
-  workflow_dispatch:         # "Run workflow" button for an on-demand update
+    # GitHub schedules run in UTC, so both slots below are listed and the
+    # "Check time zone" step keeps only the one that is 2 a.m. in New York:
+    - cron: "7 6 * * *"   # 2:07 a.m. Eastern daylight time (spring/summer)
+    - cron: "7 7 * * *"   # 2:07 a.m. Eastern standard time (fall/winter)
+  workflow_dispatch:       # "Run workflow" button for an on-demand update
 
 permissions:
   contents: write
@@ -12,13 +15,27 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Check time zone
+        id: tz
+        run: |
+          offset=$(TZ=America/New_York date +%z)
+          slot="${{ github.event.schedule }}"
+          if [ -z "$slot" ] || { [ "$slot" = "7 6 * * *" ] && [ "$offset" = "-0400" ]; } || { [ "$slot" = "7 7 * * *" ] && [ "$offset" = "-0500" ]; }; then
+            echo "go=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Not 2 a.m. in New York for this slot; skipping."
+          fi
+      - if: steps.tz.outputs.go == 'true'
+        uses: actions/checkout@v4
+      - if: steps.tz.outputs.go == 'true'
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - name: Pull latest scores from Stern
+        if: steps.tz.outputs.go == 'true'
         run: python refresh.py data.json
       - name: Commit new scores
+        if: steps.tz.outputs.go == 'true'
         run: |
           git config user.name "crewboard-bot"
           git config user.email "crewboard-bot@users.noreply.github.com"
