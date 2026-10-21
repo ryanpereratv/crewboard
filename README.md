@@ -1,6 +1,6 @@
 # Crew Board
 
-Top-5 tracker for ORYAN, MRPKM, YUNGLION666 and MALINAV at Leaderboard Shad, using Stern Insider Connected's public leaderboard feed.
+Top-5 tracker for a group of friends at a local pinball location, using Stern Insider Connected's public leaderboard feed.
 
 - `index.html` – the board (served by GitHub Pages)
 - `data.json` – scores, rebuilt by `refresh.py`
