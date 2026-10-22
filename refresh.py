@@ -46,7 +46,8 @@ def build():
                 if u in CREW:
                     year_rank = sum(1 for x in all_scores[t] if x > s) + 1
                     c[u] = [i + 1, s, year_rank, len(all_scores[t])]
-            data["q"][q][t] = {"n": len(arr), "t5": [[p, s] for _, p, s in arr[:5]], "c": c}
+            data["q"][q][t] = {"n": len(arr), "t5": [[p, s] for _, p, s in arr[:5]],
+                                "s10": arr[9][2] if len(arr) >= 10 else None, "c": c}
 
     for t in all_scores:
         best = {}
@@ -56,7 +57,7 @@ def build():
                     best[p.upper()] = [p, s, q]
         lst = sorted(best.values(), key=lambda x: -x[1])
         c = {x[0].upper(): [i + 1, x[1], x[2]] for i, x in enumerate(lst) if x[0].upper() in CREW}
-        data["y"][t] = {"t5": lst[:5], "c": c, "n": len(lst)}
+        data["y"][t] = {"t5": lst[:5], "s10": lst[9][1] if len(lst) >= 10 else None, "c": c, "n": len(lst)}
 
     data["fetched"] = datetime.now(timezone.utc).isoformat()
     return data

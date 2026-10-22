@@ -138,6 +138,10 @@ h1,h2,h3{margin:0;text-wrap:balance}
       <div class="covbar" id="covbar" aria-hidden="true"></div>
       <div class="covtxt" id="covtxt"></div>
     </div>
+    <div class="cov">
+      <div class="covbar" id="covbar10" aria-hidden="true"></div>
+      <div class="covtxt" id="covtxt10"></div>
+    </div>
   </section>
 
   <section class="cols">
@@ -190,7 +194,10 @@ function machinesFor(p){
     let status='far', pct=null;
     if(best&&best.rank<=5) status='own';
     else if(best&&fifth){pct=(fifth-best.score)/fifth; if(pct<=CLOSE) status='close';}
-    return {t,n:v.n,t5:v.t5,crew,best,fifth,status,pct};
+    let status10='far';
+    if(best&&best.rank<=10) status10='own';
+    else if(best&&v.s10&&(v.s10-best.score)/v.s10<=CLOSE) status10='close';
+    return {t,n:v.n,t5:v.t5,crew,best,fifth,status,pct,status10};
   }).sort((a,b)=>a.t.localeCompare(b.t));
 }
 
@@ -220,6 +227,9 @@ function render(){
   const own=ms.filter(m=>m.status==='own').length, close=ms.filter(m=>m.status==='close').length;
   document.getElementById('covbar').innerHTML=[...ms].sort((a,b)=>({own:0,close:1,far:2}[a.status]-{own:0,close:1,far:2}[b.status])).map(m=>`<i class="${m.status}" title="${esc(m.t)}"></i>`).join('');
   document.getElementById('covtxt').innerHTML=`Crew holds a top-5 spot on <b>${own} of ${ms.length}</b> machines. <b>${close}</b> more are within reach, and <b>${ms.length-own-close}</b> still need work.`;
+  const own10=ms.filter(m=>m.status10==='own').length, close10=ms.filter(m=>m.status10==='close').length;
+  document.getElementById('covbar10').innerHTML=[...ms].sort((a,b)=>({own:0,close:1,far:2}[a.status10]-{own:0,close:1,far:2}[b.status10])).map(m=>`<i class="${m.status10}" title="${esc(m.t)}"></i>`).join('');
+  document.getElementById('covtxt10').innerHTML=`Crew holds a top-10 spot on <b>${own10} of ${ms.length}</b> machines. <b>${close10}</b> more are within reach, and <b>${ms.length-own10-close10}</b> still need work.`;
 
   // next up
   const next=ms.filter(m=>m.status!=='own'&&m.best).sort((a,b)=>a.pct-b.pct).slice(0,8);
