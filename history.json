@@ -1,6 +1,6 @@
 {
  "since": "2026-10-21T16:31:02.999879+00:00",
- "checked": "2026-10-21T16:31:26.734794+00:00",
+ "checked": "2026-10-22T11:41:37.870628+00:00",
  "positions": {
   "Q4|Aerosmith|MALINAV": [
    4,
@@ -22,6 +22,10 @@
    5,
    341123090
   ],
+  "Q4|Elvira's House of Horrors|MRPKM": [
+   1,
+   237926290
+  ],
   "Q4|Foo Fighters|MALINAV": [
    4,
    189700430
@@ -33,6 +37,10 @@
   "Q4|Godzilla|YUNGLION666": [
    4,
    426196340
+  ],
+  "Q4|Godzilla|MRPKM": [
+   5,
+   327256930
   ],
   "Q4|Guardians of the Galaxy|ORYAN": [
    2,
@@ -51,7 +59,7 @@
    708425210
   ],
   "Q4|John Wick|MRPKM": [
-   4,
+   5,
    566122070
   ],
   "Q4|Jurassic Park|MALINAV": [
@@ -78,6 +86,10 @@
    4,
    333544950
   ],
+  "Q4|Stranger Things|MRPKM": [
+   4,
+   180638840
+  ],
   "Q4|The Mandalorian|MALINAV": [
    3,
    145723820
@@ -91,5 +103,36 @@
    138160460
   ]
  },
- "events": []
+ "events": [
+  {
+   "at": "2026-10-22T11:41:37.870628+00:00",
+   "q": "Q4",
+   "t": "Elvira's House of Horrors",
+   "u": "MRPKM",
+   "rank": 1,
+   "prev": null,
+   "score": 237926290,
+   "kind": "new"
+  },
+  {
+   "at": "2026-10-22T11:41:37.870628+00:00",
+   "q": "Q4",
+   "t": "Godzilla",
+   "u": "MRPKM",
+   "rank": 5,
+   "prev": null,
+   "score": 327256930,
+   "kind": "new"
+  },
+  {
+   "at": "2026-10-22T11:41:37.870628+00:00",
+   "q": "Q4",
+   "t": "Stranger Things",
+   "u": "MRPKM",
+   "rank": 4,
+   "prev": null,
+   "score": 180638840,
+   "kind": "new"
+  }
+ ]
 }
