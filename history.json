@@ -1,6 +1,6 @@
 {
  "since": "2026-10-21T16:31:02.999879+00:00",
- "checked": "2026-10-22T16:51:28.721356+00:00",
+ "checked": "2026-10-23T11:30:52.834289+00:00",
  "positions": {
   "Q4|Aerosmith|MALINAV": [
    4,
@@ -97,10 +97,6 @@
   "Q4|The Mandalorian|ORYAN": [
    5,
    138092870
-  ],
-  "Q4|The Uncanny X-Men|MALINAV": [
-   5,
-   138160460
   ]
  },
  "events": [
