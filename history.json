@@ -1,6 +1,6 @@
 {
  "since": "2026-10-21T16:31:02.999879+00:00",
- "checked": "2026-10-24T10:49:57.514381+00:00",
+ "checked": "2026-10-25T05:25:52.356110+00:00",
  "positions": {
   "Q4|Aerosmith|MALINAV": [
    4,
@@ -18,13 +18,13 @@
    3,
    202079830
   ],
-  "Q4|Dungeons & Dragons|MALINAV": [
-   5,
-   341123090
-  ],
   "Q4|Elvira's House of Horrors|MRPKM": [
    1,
    237926290
+  ],
+  "Q4|Fallout|MALINAV": [
+   1,
+   664241900
   ],
   "Q4|Foo Fighters|MALINAV": [
    4,
@@ -83,7 +83,7 @@
    333544950
   ],
   "Q4|Stranger Things|MRPKM": [
-   4,
+   5,
    180638840
   ],
   "Q4|The Mandalorian|MALINAV": [
@@ -124,6 +124,16 @@
    "rank": 4,
    "prev": null,
    "score": 180638840,
+   "kind": "new"
+  },
+  {
+   "at": "2026-10-25T05:25:52.356110+00:00",
+   "q": "Q4",
+   "t": "Fallout",
+   "u": "MALINAV",
+   "rank": 1,
+   "prev": null,
+   "score": 664241900,
    "kind": "new"
   }
  ]
