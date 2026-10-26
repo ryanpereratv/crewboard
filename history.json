@@ -1,6 +1,6 @@
 {
  "since": "2026-10-21T16:31:02.999879+00:00",
- "checked": "2026-10-25T11:15:46.985715+00:00",
+ "checked": "2026-10-26T12:49:38.727304+00:00",
  "positions": {
   "Q4|Aerosmith|MALINAV": [
    4,
@@ -47,7 +47,7 @@
    187919480
   ],
   "Q4|James Bond 007|MALINAV": [
-   3,
+   4,
    388698560
   ],
   "Q4|Jaws|MALINAV": [
@@ -87,12 +87,8 @@
    180638840
   ],
   "Q4|The Mandalorian|MALINAV": [
-   3,
+   4,
    145723820
-  ],
-  "Q4|The Mandalorian|ORYAN": [
-   5,
-   138092870
   ]
  },
  "events": [
