@@ -1,9 +1,13 @@
 {
  "since": "2026-10-21T16:31:02.999879+00:00",
- "checked": "2026-10-27T12:01:58.541313+00:00",
+ "checked": "2026-10-28T12:42:25.055394+00:00",
  "positions": {
-  "Q4|Aerosmith|MALINAV": [
+  "Q4|Aerosmith|MRPKM": [
    4,
+   65877090
+  ],
+  "Q4|Aerosmith|MALINAV": [
+   5,
    62561430
   ],
   "Q4|Avengers: Infinity Quest|MALINAV": [
@@ -39,7 +43,7 @@
    426196340
   ],
   "Q4|Guardians of the Galaxy|ORYAN": [
-   2,
+   3,
    287816800
   ],
   "Q4|Iron Maiden|YUNGLION666": [
@@ -53,10 +57,6 @@
   "Q4|Jaws|MALINAV": [
    1,
    708425210
-  ],
-  "Q4|John Wick|MRPKM": [
-   5,
-   566122070
   ],
   "Q4|Jurassic Park|MALINAV": [
    1,
@@ -130,6 +130,16 @@
    "rank": 1,
    "prev": null,
    "score": 664241900,
+   "kind": "new"
+  },
+  {
+   "at": "2026-10-28T12:42:25.055394+00:00",
+   "q": "Q4",
+   "t": "Aerosmith",
+   "u": "MRPKM",
+   "rank": 4,
+   "prev": null,
+   "score": 65877090,
    "kind": "new"
   }
  ]
