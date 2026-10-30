@@ -53,6 +53,12 @@ h1,h2,h3{margin:0;text-wrap:balance}
 .views button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
 .views button:focus-visible,.lbrow:focus-visible{outline:2px solid var(--dmd);outline-offset:2px}
 /* location leaderboard */
+.lbstats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+.lbstat{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--panel);min-width:0}
+.lbstat .v{font-family:var(--f-dot);font-weight:900;font-size:40px;line-height:1;color:var(--dmd)}
+.lbstat .lbl{margin-top:6px;display:block}
+.lbstat .d{font-size:13px;color:var(--muted);margin-top:4px}
+@media (max-width:560px){.lbstats{grid-template-columns:1fr 1fr}.lbstats .lbstat:first-child{grid-column:1 / -1}.lbstat .v{font-size:32px}}
 .lbhint{color:var(--muted);font-size:13px;margin:6px 0 0;max-width:70ch}
 .lbcrew{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:14px}
 .lbcrew span{color:var(--muted)} .lbcrew b{color:var(--own);font-weight:600}
@@ -187,8 +193,8 @@ h1,h2,h3{margin:0;text-wrap:balance}
   <section id="lbview" hidden>
     <div class="gridhead">
       <h2>Location leaderboard</h2>
-      <span class="lbl" id="lb-sub"></span>
     </div>
+    <div class="lbstats" id="lb-stats"></div>
     <p class="lbhint">Every top-10 spot on every machine earns points: 10 for #1, 9 for #2, down to 1 for #10. Ties go to more #1s, then more top-5s. Tap a player to see where they placed.</p>
     <div class="lbcrew" id="lb-crew"></div>
     <div class="lb" id="lb"></div>
@@ -250,7 +256,15 @@ function lbFor(p){
 function renderLB(){
   const list=lbFor(period), top=list.length?list[0].pts:1;
   const machines=Object.keys(period==='Y'?D.y:D.q[period]).length;
-  document.getElementById('lb-sub').textContent=`${list.length} players · ${machines} machines`;
+  const pc=(D.players||{})[period];
+  const total=pc?pc.n:null, capped=pc?pc.capped:0;
+  document.getElementById('lb-stats').innerHTML=`
+    <div class="lbstat"><div class="v num">${total==null?'–':fmt(total)+(capped?'+':'')}</div><span class="lbl">Players on the boards</span>
+      <div class="d">${total==null?'Shows after the next update.':capped?`Everyone with a score here. Stern lists only the top 100 per machine, and ${capped} ${capped===1?'machine is':'machines are'} full, so the real total may be higher.`:'Everyone with a score on any machine here.'}</div></div>
+    <div class="lbstat"><div class="v num">${list.length}</div><span class="lbl">With a top-10 spot</span>
+      <div class="d">${total?Math.round(list.length/total*100)+'% of players score points':'Players who earn points'}</div></div>
+    <div class="lbstat"><div class="v num">${machines}</div><span class="lbl">Machines</span>
+      <div class="d">${machines*55} points up for grabs</div></div>`;
   const crew=CREW.map(u=>list.find(o=>o.k===u)).filter(Boolean).sort((a,b)=>a.pos-b.pos);
   document.getElementById('lb-crew').innerHTML='<span>Crew:</span>'+(crew.length?crew.map(o=>`<span><b>${DISP[o.k]}</b> ${ordinal(o.pos)} · ${o.pts} pts</span>`).join(''):'<span>no top-10 spots yet</span>');
   const shown=lbAll?list:list.filter((o,i)=>i<LB_SHOW||isCrew(o.k));

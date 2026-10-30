@@ -60,6 +60,18 @@ def build():
         c = {x[0].upper(): [i + 1, x[1], x[2]] for i, x in enumerate(lst) if x[0].upper() in CREW}
         data["y"][t] = {"t5": lst[:5], "t10": lst[:10], "s10": lst[9][1] if len(lst) >= 10 else None, "c": c, "n": len(lst)}
 
+    # Unique players with any score on the boards. Stern's feed stops at 100 scores
+    # per machine, so "capped" counts machines where more players may exist.
+    data["players"] = {}
+    for q, rows in raw.items():
+        per = {}
+        for t, _, _ in rows:
+            per[t] = per.get(t, 0) + 1
+        data["players"][q] = {"n": len({p.upper() for _, p, _ in rows}),
+                              "capped": sum(1 for v in per.values() if v >= 100)}
+    data["players"]["Y"] = {"n": len({p.upper() for rows in raw.values() for _, p, _ in rows}),
+                            "capped": sum(v["capped"] for v in data["players"].values())}
+
     data["fetched"] = datetime.now(timezone.utc).isoformat()
     return data
 
