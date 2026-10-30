@@ -18,6 +18,7 @@
   color-scheme:dark;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.45;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
 .wrap{max-width:1180px;margin:0 auto;display:grid;gap:28px}
@@ -44,6 +45,37 @@ h1,h2,h3{margin:0;text-wrap:balance}
 .pl .row b{color:var(--fg);font-weight:600}
 .pl.lead{border-color:var(--dmd)}
 .cov{margin-top:16px;display:grid;gap:6px}
+/* view switch */
+.mright{display:grid;gap:8px;justify-items:end}
+.views{display:inline-flex;border:1px solid var(--line);border-radius:7px;overflow:hidden}
+.views button{font-family:var(--f-label);font-weight:700;letter-spacing:.06em;font-size:15px;text-transform:uppercase;background:transparent;color:var(--muted);border:0;padding:6px 14px;cursor:pointer}
+.views button+button{border-left:1px solid var(--line)}
+.views button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.views button:focus-visible,.lbrow:focus-visible{outline:2px solid var(--dmd);outline-offset:2px}
+/* location leaderboard */
+.lbhint{color:var(--muted);font-size:13px;margin:6px 0 0;max-width:70ch}
+.lbcrew{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:14px}
+.lbcrew span{color:var(--muted)} .lbcrew b{color:var(--own);font-weight:600}
+.lb{display:grid;gap:6px;margin-top:14px}
+.lbrow{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:4px 14px;align-items:center;width:100%;text-align:left;font:inherit;color:inherit;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 14px;cursor:pointer}
+.lbrow.crew{border-color:var(--own);background:linear-gradient(90deg,rgba(76,195,138,.10),var(--panel) 45%)}
+.lbrow .pos{font-family:var(--f-dot);font-weight:900;font-size:26px;line-height:1;color:var(--muted);text-align:center}
+.lbrow.podium .pos{color:var(--dmd);text-shadow:0 0 10px rgba(255,138,31,.35)}
+.lbrow .who{min-width:0;display:grid;gap:4px}
+.lbrow .nm{font-family:var(--f-label);font-weight:700;font-size:19px;letter-spacing:.03em;overflow-wrap:anywhere}
+.lbrow.crew .nm{color:var(--own)}
+.lbrow .stats{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.lbrow .stats b{color:var(--fg);font-weight:600}
+.lbrow .bar{height:4px;background:var(--panel2);border-radius:2px;overflow:hidden}
+.lbrow .bar span{display:block;height:100%;background:var(--dmd)}
+.lbrow.crew .bar span{background:var(--own)}
+.lbrow .pts{text-align:right;font-family:var(--f-dot);font-weight:900;font-size:28px;line-height:1;color:var(--fg)}
+.lbrow .pts small{display:block;font-family:var(--f-label);font-weight:600;font-size:11px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-top:2px}
+.lbrow .places{grid-column:2 / -1;display:flex;flex-wrap:wrap;gap:6px;padding-top:6px;border-top:1px solid var(--line);margin-top:4px}
+.chip{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:2px 9px;background:var(--panel2);max-width:100%;overflow-wrap:anywhere}
+.chip b{font-family:var(--f-label);font-weight:700;color:var(--dmd);letter-spacing:.03em}
+.lbmore{justify-self:start;margin-top:4px;font:inherit;font-size:14px;color:var(--fg);background:transparent;border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer}
+@media (max-width:560px){.lbrow{grid-template-columns:34px minmax(0,1fr) auto;gap:4px 10px;padding:10px}.lbrow .pos{font-size:20px}.lbrow .pts{font-size:22px}.mright{justify-items:start}}
 /* shoutouts */
 .shout{margin-top:18px;border:1px solid var(--dmd);border-radius:8px;background:rgba(20,17,16,.9);padding:12px 14px}
 .shout-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 12px}
@@ -121,14 +153,21 @@ h1,h2,h3{margin:0;text-wrap:balance}
         <h1>CREW BOARD</h1>
         <div class="sub">Leaderboard Shad · Stern Insider Connected · <span id="period-name"></span></div>
       </div>
-      <div class="tabs" role="group" aria-label="Period">
+      <div class="mright">
+      <div class="views" role="group" aria-label="View">
+        <button id="view-crew" data-v="crew">Crew</button>
+        <button id="view-lb" data-v="lb">Leaderboard</button>
+      </div>
+      <div class="tabs" id="ptabs" role="group" aria-label="Period">
         <button id="tab-Q1" data-p="Q1">Q1</button>
         <button id="tab-Q2" data-p="Q2">Q2</button>
         <button id="tab-Q3" data-p="Q3">Q3</button>
         <button id="tab-Q4" data-p="Q4">Q4 live</button>
         <button id="tab-Y" data-p="Y">2026 year</button>
       </div>
+      </div>
     </div>
+    <div id="crew-top">
     <div class="shout" id="shout" hidden>
       <div class="shout-h"><h2>NEW THIS WEEK</h2><span class="lbl" id="shout-sub"></span></div>
       <div class="shouts" id="shouts"></div>
@@ -142,9 +181,20 @@ h1,h2,h3{margin:0;text-wrap:balance}
       <div class="covbar" id="covbar10" aria-hidden="true"></div>
       <div class="covtxt" id="covtxt10"></div>
     </div>
+    </div>
   </section>
 
-  <section class="cols">
+  <section id="lbview" hidden>
+    <div class="gridhead">
+      <h2>Location leaderboard</h2>
+      <span class="lbl" id="lb-sub"></span>
+    </div>
+    <p class="lbhint">Every top-10 spot on every machine earns points: 10 for #1, 9 for #2, down to 1 for #10. Ties go to more #1s, then more top-5s. Tap a player to see where they placed.</p>
+    <div class="lbcrew" id="lb-crew"></div>
+    <div class="lb" id="lb"></div>
+  </section>
+
+  <section class="cols" id="crew-cols">
     <div class="box">
       <h2>Go play these next</h2>
       <p class="hint">Machines with no crew top-5 yet, sorted by how short the crew's best score is of 5th place.</p>
@@ -157,7 +207,7 @@ h1,h2,h3{margin:0;text-wrap:balance}
     </div>
   </section>
 
-  <section>
+  <section id="crew-machines">
     <div class="gridhead">
       <h2>Every machine</h2>
       <div class="legend">
@@ -177,8 +227,47 @@ const CREW=['ORYAN','MRPKM','YUNGLION666','MALINAV'];
 const DISP={ORYAN:'ORYAN',MRPKM:'MRPKM',YUNGLION666:'YUNGLION666',MALINAV:'MALINAV'};
 const PNAME={Q1:'Q1 2026 (final)',Q2:'Q2 2026 (final)',Q3:'Q3 2026 (final)',Q4:'Q4 2026 (in progress)',Y:'Full year 2026, best score per player'};
 const CLOSE=0.35;
-let D=null, period='Q4';
-try{const s=localStorage.getItem('crew-period'); if(s&&PNAME[s]) period=s;}catch(e){}
+let D=null, period='Q4', view='crew', lbAll=false;
+try{const s=localStorage.getItem('crew-period'); if(s&&PNAME[s]) period=s; const v=localStorage.getItem('crew-view'); if(v==='lb'||v==='crew') view=v;}catch(e){}
+if(location.hash==='#leaderboard') view='lb'; else if(location.hash==='#crew') view='crew';
+const LB_SHOW=25;
+
+function lbFor(p){
+  const src=p==='Y'?D.y:D.q[p], P={};
+  for(const [t,v] of Object.entries(src)){
+    (v.t10||v.t5).forEach((r,i)=>{
+      const k=String(r[0]).toUpperCase();
+      const o=P[k]||(P[k]={k,name:r[0],pts:0,ones:0,t5:0,t10:0,pl:[]});
+      o.pts+=10-i; if(i===0)o.ones++; if(i<5)o.t5++; o.t10++;
+      o.pl.push({t,r:i+1,s:r[1],q:r[2]});
+    });
+  }
+  const list=Object.values(P).sort((a,b)=>b.pts-a.pts||b.ones-a.ones||b.t5-a.t5||a.name.localeCompare(b.name));
+  list.forEach((o,i)=>{const prev=list[i-1]; o.pos=(prev&&prev.pts===o.pts&&prev.ones===o.ones&&prev.t5===o.t5)?prev.pos:i+1; o.pl.sort((a,b)=>a.r-b.r||a.t.localeCompare(b.t));});
+  return list;
+}
+
+function renderLB(){
+  const list=lbFor(period), top=list.length?list[0].pts:1;
+  const machines=Object.keys(period==='Y'?D.y:D.q[period]).length;
+  document.getElementById('lb-sub').textContent=`${list.length} players · ${machines} machines`;
+  const crew=CREW.map(u=>list.find(o=>o.k===u)).filter(Boolean).sort((a,b)=>a.pos-b.pos);
+  document.getElementById('lb-crew').innerHTML='<span>Crew:</span>'+(crew.length?crew.map(o=>`<span><b>${DISP[o.k]}</b> ${ordinal(o.pos)} · ${o.pts} pts</span>`).join(''):'<span>no top-10 spots yet</span>');
+  const shown=lbAll?list:list.filter((o,i)=>i<LB_SHOW||isCrew(o.k));
+  document.getElementById('lb').innerHTML=shown.map((o,i)=>{
+    const gap=i>0&&shown[i-1]&&list.indexOf(o)-list.indexOf(shown[i-1])>1?'<div class="lbhint">…</div>':'';
+    return `${gap}<button class="lbrow ${isCrew(o.k)?'crew':''} ${o.pos<=3?'podium':''}" id="lb-${esc(o.k).replace(/[^A-Z0-9]/gi,'')}" aria-expanded="false">
+      <span class="pos">${o.pos}</span>
+      <span class="who"><span class="nm">${esc(o.name)}</span>
+        <span class="stats"><b>${o.ones}</b> × #1 · <b>${o.t5}</b> top-5 · <b>${o.t10}</b> top-10</span>
+        <span class="bar"><span style="width:${Math.max(2,Math.round(o.pts/top*100))}%"></span></span></span>
+      <span class="pts num">${o.pts}<small>points</small></span>
+      <span class="places" hidden>${o.pl.map(x=>`<span class="chip"><b>#${x.r}</b> ${esc(x.t)}${period==='Y'?` · ${x.q}`:''}</span>`).join('')}</span>
+    </button>`;}).join('')+(list.length>LB_SHOW?`<button class="lbmore" id="lb-more">${lbAll?'Show top '+LB_SHOW+' only':'Show all '+list.length+' players'}</button>`:'');
+  document.querySelectorAll('.lbrow').forEach(b=>b.addEventListener('click',()=>{const p=b.querySelector('.places');p.hidden=!p.hidden;b.setAttribute('aria-expanded',!p.hidden)}));
+  const more=document.getElementById('lb-more'); if(more) more.addEventListener('click',()=>{lbAll=!lbAll;renderLB()});
+}
+const ordinal=n=>n+(['th','st','nd','rd'][(n%100-20)%10]||['th','st','nd','rd'][n%100]||'th');
 
 const fmt=n=>n.toLocaleString('en-US');
 const short=n=>n>=1e9?(n/1e9).toFixed(2)+'B':n>=1e6?(n/1e6).toFixed(1)+'M':fmt(n);
@@ -202,7 +291,12 @@ function machinesFor(p){
 }
 
 function render(){
-  document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.p===period));
+  document.querySelectorAll('#ptabs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.p===period));
+  document.querySelectorAll('.views button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===view));
+  const lb=view==='lb';
+  ['crew-top','crew-cols','crew-machines'].forEach(id=>document.getElementById(id).hidden=lb);
+  document.getElementById('lbview').hidden=!lb;
+  renderLB();
   document.getElementById('period-name').textContent=PNAME[period];
   const ms=machinesFor(period);
 
@@ -280,7 +374,8 @@ function render(){
   document.getElementById('foot').textContent=`Data pulled from Stern Insider Connected on ${new Date(D.fetched).toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'})}. Stern's feed lists the top 100 per machine, so a crew score below 100th won't show. Tap a machine to see its top 5.`;
 }
 
-document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{period=b.dataset.p;try{localStorage.setItem('crew-period',period)}catch(e){}render()}));
+document.querySelectorAll('.views button').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.v;try{localStorage.setItem('crew-view',view)}catch(e){}try{history.replaceState(null,'',view==='lb'?'#leaderboard':'#crew')}catch(e){}render()}));
+document.querySelectorAll('#ptabs button').forEach(b=>b.addEventListener('click',()=>{lbAll=false;period=b.dataset.p;try{localStorage.setItem('crew-period',period)}catch(e){}render()}));
 function renderShouts(h){
   const box=document.getElementById('shout'); if(!h) return;
   const week=Date.now()-7*864e5;

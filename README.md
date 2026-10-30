@@ -2,7 +2,7 @@
 
 Top-5 tracker for a group of friends at a local pinball location, using Stern Insider Connected's public leaderboard feed.
 
-- `index.html` – the board (served by GitHub Pages)
+- `index.html` – the board (served by GitHub Pages): a Crew view and a Leaderboard view that ranks every top-10 player at the location (10 points for #1 down to 1 for #10)
 - `data.json` – scores, rebuilt by `refresh.py`
 - `history.json` – crew top-5 spots from the last run, plus the log of new top-5s and climbs shown in the "New this week" banner
 - `.github/workflows/refresh.yml` – runs the refresh every day around 2 a.m. Eastern; use **Actions → Refresh scores → Run workflow** for an update on demand
