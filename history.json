@@ -1,6 +1,6 @@
 {
  "since": "2026-10-21T16:31:02.999879+00:00",
- "checked": "2026-10-30T19:38:57.026930+00:00",
+ "checked": "2026-10-31T12:14:49.004765+00:00",
  "positions": {
   "Q4|Avengers: Infinity Quest|MALINAV": [
    4,
@@ -31,8 +31,8 @@
    811631510
   ],
   "Q4|Godzilla|YUNGLION666": [
-   5,
-   426196340
+   2,
+   486852830
   ],
   "Q4|Guardians of the Galaxy|ORYAN": [
    3,
@@ -171,6 +171,16 @@
    "prev": null,
    "score": 161710390,
    "kind": "new"
+  },
+  {
+   "at": "2026-10-31T12:14:49.004765+00:00",
+   "q": "Q4",
+   "t": "Godzilla",
+   "u": "YUNGLION666",
+   "rank": 2,
+   "prev": 5,
+   "score": 486852830,
+   "kind": "up"
   }
  ]
 }
