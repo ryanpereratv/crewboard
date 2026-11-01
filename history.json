@@ -1,6 +1,6 @@
 {
  "since": "2026-10-21T16:31:02.999879+00:00",
- "checked": "2026-10-31T12:14:49.004765+00:00",
+ "checked": "2026-11-01T05:36:36.036440+00:00",
  "positions": {
   "Q4|Avengers: Infinity Quest|MALINAV": [
    4,
@@ -28,7 +28,7 @@
   ],
   "Q4|Godzilla|MALINAV": [
    1,
-   811631510
+   1141319430
   ],
   "Q4|Godzilla|YUNGLION666": [
    2,
@@ -37,6 +37,10 @@
   "Q4|Guardians of the Galaxy|ORYAN": [
    3,
    287816800
+  ],
+  "Q4|Guardians of the Galaxy|MRPKM": [
+   4,
+   89260280
   ],
   "Q4|Iron Maiden|YUNGLION666": [
    4,
@@ -181,6 +185,16 @@
    "prev": 5,
    "score": 486852830,
    "kind": "up"
+  },
+  {
+   "at": "2026-11-01T05:36:36.036440+00:00",
+   "q": "Q4",
+   "t": "Guardians of the Galaxy",
+   "u": "MRPKM",
+   "rank": 4,
+   "prev": null,
+   "score": 89260280,
+   "kind": "new"
   }
  ]
 }
