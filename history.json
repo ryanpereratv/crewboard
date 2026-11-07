@@ -1,6 +1,6 @@
 {
  "since": "2026-10-21T16:31:02.999879+00:00",
- "checked": "2026-11-06T14:58:08.804026+00:00",
+ "checked": "2026-11-07T07:22:02.953640+00:00",
  "positions": {
   "Q4|Avengers: Infinity Quest|MALINAV": [
    4,
@@ -19,7 +19,7 @@
    237926290
   ],
   "Q4|Fallout|MALINAV": [
-   3,
+   4,
    664241900
   ],
   "Q4|Foo Fighters|MALINAV": [
@@ -31,7 +31,7 @@
    1141319430
   ],
   "Q4|Godzilla|YUNGLION666": [
-   2,
+   3,
    486852830
   ],
   "Q4|Guardians of the Galaxy|ORYAN": [
@@ -41,10 +41,6 @@
   "Q4|Guardians of the Galaxy|MRPKM": [
    5,
    89260280
-  ],
-  "Q4|Iron Maiden|YUNGLION666": [
-   5,
-   212992820
   ],
   "Q4|James Bond 007|MALINAV": [
    5,
@@ -57,14 +53,6 @@
   "Q4|Jurassic Park|MALINAV": [
    1,
    539811170
-  ],
-  "Q4|Led Zeppelin|MRPKM": [
-   4,
-   51612770
-  ],
-  "Q4|Led Zeppelin|YUNGLION666": [
-   5,
-   43967920
   ],
   "Q4|Rush|ORYAN": [
    1,
