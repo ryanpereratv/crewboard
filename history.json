@@ -1,18 +1,10 @@
 {
  "since": "2026-10-21T16:31:02.999879+00:00",
- "checked": "2026-11-08T14:15:34.272259+00:00",
+ "checked": "2026-11-09T17:25:36.487211+00:00",
  "positions": {
   "Q4|Avengers: Infinity Quest|MALINAV": [
    4,
    74713230
-  ],
-  "Q4|Batman '66|ORYAN": [
-   3,
-   133241830
-  ],
-  "Q4|Batman '66|MRPKM": [
-   4,
-   126983050
   ],
   "Q4|Deadpool|MALINAV": [
    1,
@@ -79,7 +71,7 @@
    19270250
   ],
   "Q4|The Mandalorian|MALINAV": [
-   4,
+   5,
    145723820
   ]
  },
