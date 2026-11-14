@@ -1,10 +1,14 @@
 {
  "since": "2026-10-21T16:31:02.999879+00:00",
- "checked": "2026-11-13T15:19:12.859398+00:00",
+ "checked": "2026-11-14T08:00:28.674659+00:00",
  "positions": {
   "Q4|Avengers: Infinity Quest|MALINAV": [
-   4,
+   5,
    74713230
+  ],
+  "Q4|Batman '66|ORYAN": [
+   1,
+   731336710
   ],
   "Q4|Deadpool|MALINAV": [
    1,
@@ -182,6 +186,16 @@
    "rank": 4,
    "prev": null,
    "score": 126983050,
+   "kind": "new"
+  },
+  {
+   "at": "2026-11-14T08:00:28.674659+00:00",
+   "q": "Q4",
+   "t": "Batman '66",
+   "u": "ORYAN",
+   "rank": 1,
+   "prev": null,
+   "score": 731336710,
    "kind": "new"
   }
  ]
