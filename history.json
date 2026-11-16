@@ -1,6 +1,6 @@
 {
  "since": "2026-10-21T16:31:02.999879+00:00",
- "checked": "2026-11-15T14:42:47.323281+00:00",
+ "checked": "2026-11-16T16:57:35.393596+00:00",
  "positions": {
   "Q4|Avengers: Infinity Quest|MALINAV": [
    5,
@@ -38,9 +38,9 @@
    3,
    287816800
   ],
-  "Q4|James Bond 007|MALINAV": [
+  "Q4|James Bond 007|MRPKM": [
    5,
-   388698560
+   417612830
   ],
   "Q4|Jaws|MALINAV": [
    1,
@@ -196,6 +196,16 @@
    "rank": 1,
    "prev": null,
    "score": 731336710,
+   "kind": "new"
+  },
+  {
+   "at": "2026-11-16T16:57:35.393596+00:00",
+   "q": "Q4",
+   "t": "James Bond 007",
+   "u": "MRPKM",
+   "rank": 5,
+   "prev": null,
+   "score": 417612830,
    "kind": "new"
   }
  ]
